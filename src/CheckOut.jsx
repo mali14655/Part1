@@ -11,9 +11,9 @@ export default function CheckOut() {
     const [clientSecret, setClientSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const {total,show,setshow}=useContext(amountcontext);
+    const {total,show,setshow,CartItems,setCartItems}=useContext(amountcontext);
 
-    
+    // 
 
     useEffect(() => {
         // This is where you send the cart total to your backend
@@ -35,29 +35,30 @@ export default function CheckOut() {
           })
           .catch((error) => setErrorMessage('Failed to load client secret'));
       }, []);
-
-
+      
+      
       const handleSubmit = async (event) => {
         event.preventDefault();
-    
+        
         if (!stripe || !elements) return;
-    
+        
         setLoading(true);
         const cardElement = elements.getElement(CardElement);
-    
+        
         const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card: cardElement,
           },
         });
-    
+        
         setLoading(false);
-    
+        
         if (error) {
           setErrorMessage(error.message);
         } else if (paymentIntent.status === 'succeeded') {
           alert('Payment successful!');
           setshow(false)
+          setCartItems([]);
         }
       };
 

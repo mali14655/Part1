@@ -10,6 +10,7 @@ export const amountcontext=createContext();
 function Cart() {
      
     const {CartItems,setCartItems}=useContext(cartItemsContext);
+    const [stackitems,setstackitems]=useState([]);
     const [total,settotal]=useState(0);
     const [show,setshow]=useState(false);
     const {InOut='SlideOut',setInOut=()=>{}}=useContext(mycontext) || {};
@@ -27,11 +28,21 @@ function Cart() {
     
         CalculateTotal(CartItems);
 
+        setstackitems(CartItems.reverse());
+
     },[CartItems])
+
+    const delet=(index)=>{
+        const newdata=CartItems.filter((item,i)=>(i!==index))
+        setCartItems(newdata);
+    }
+
+
+    
 
 
   return (
-<amountcontext.Provider value={{total,show,setshow}}>
+<amountcontext.Provider value={{total,show,setshow,CartItems,setCartItems}}>
     {show&&<CheckOut/>}
 <div className={`${InOut} w-[90%] md:w-[400px] md:h-[1024px] bg-white h-[100vh]  z-20 px-4 py-5 cart`}>
 
@@ -40,8 +51,8 @@ function Cart() {
 
     <div className='flex justify-between items-center sticky top-0 z-30 bg-white'>
         <h1 className='poppins font-medium leading-8 text-[28px]'>Cart</h1>
-        <div className='h-6 w-6 flex justify-center items-center'>
-        <img src={cross} alt="" onClick={()=>{
+        <div className='h-6 w-6 flex justify-center items-center hover:cursor-pointer'>
+        <img className='object-cover object-center' src={cross} alt="" onClick={()=>{
             setInOut("slideOut")
         }}  />
         </div>
@@ -49,7 +60,10 @@ function Cart() {
 
     <div className='w-full overflow-auto'>
         
-        {CartItems.map((product,index)=>{
+        {
+            
+
+        stackitems.map((product,index)=>{
 
                 
            return (
@@ -73,7 +87,12 @@ function Cart() {
                     </div>
                     <div className='h-[44px] w-[54px] absolute top-0 right-0'>
                         <h1 className='absolute right-0 inter font-semibold text-[14px]'>${product.price}</h1>
-                        <div className='h-4 w-4 flex justify-center items-center absolute top-[100%] right-0'>
+                        <div className='h-4 w-4 flex justify-center items-center absolute top-[100%] right-0'
+                        onClick={()=>{
+                            delet(index);
+                        }}
+                        
+                        >
                             <img src={cross} className='' alt="" />
                         </div>
                     </div>
