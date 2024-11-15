@@ -5,6 +5,7 @@ import star from "./assets/Star.png"
 import heart from "./assets/heart.png"
 import { cartItemsContext } from './App'
 
+
 //  importing json
 import data from "./data/data.json";
 
