@@ -9,7 +9,7 @@ export const amountcontext=createContext();
 
 function Cart() {
      
-    const {CartItems,setCartItems}=useContext(cartItemsContext);
+    const {CartItems,setCartItems,notification,setNotification}=useContext(cartItemsContext);
     const [stackitems,setstackitems]=useState([]);
     const [total,settotal]=useState(0);
     const [show,setshow]=useState(false);
@@ -42,7 +42,7 @@ function Cart() {
 
 
   return (
-<amountcontext.Provider value={{total,show,setshow,CartItems,setCartItems}}>
+<amountcontext.Provider value={{total,show,setshow,notification,setNotification}}>
     {show&&<CheckOut/>}
 <div className={`${InOut} w-[90%] md:w-[400px] md:h-[1024px] bg-white h-[100vh]  z-20 px-4 py-5 cart`}>
 
@@ -54,6 +54,8 @@ function Cart() {
         <div className='h-6 w-6 flex justify-center items-center hover:cursor-pointer'>
         <img className='object-cover object-center' src={cross} alt="" onClick={()=>{
             setInOut("slideOut")
+            setNotification(false);
+            
         }}  />
         </div>
     </div>

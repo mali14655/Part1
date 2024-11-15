@@ -14,7 +14,7 @@ import data from "./data/data.json";
 export default function NewArrivals() {
 
 
-    const {CartItems,setCartItems}=useContext(cartItemsContext);
+    const {CartItems,setCartItems,notification,setNotification}=useContext(cartItemsContext);
     const[Mydata,setMydata]=useState([])
     console.log(CartItems);
 
@@ -85,6 +85,8 @@ export default function NewArrivals() {
                                  price:product.price
 
                             }]))
+
+                            setNotification(true);
                         }}
 
                         >Add to cart</button>

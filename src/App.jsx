@@ -29,6 +29,7 @@ export default function App() {
    const [Width,setWidth]=useState(window.innerWidth)
    
    const [CartItems,setCartItems]=useState([]);
+   const [notification,setNotification]=useState(false);
 
 
    let decision=null;
@@ -55,7 +56,7 @@ export default function App() {
     <Elements stripe={stripePromise}>
 
 
-<cartItemsContext.Provider value={{CartItems,setCartItems}}>
+<cartItemsContext.Provider value={{CartItems,setCartItems,notification,setNotification}}>
 {/* <Cart/> */}
 {decision || <HeaderChild2/> }
 <Header></Header>

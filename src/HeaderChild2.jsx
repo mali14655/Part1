@@ -1,4 +1,4 @@
-import React, { useState,createContext,Provider} from 'react'
+import React, { useState,createContext,Provider, useContext} from 'react'
 import acc from "./assets/vectors2/vector1.png"
 import rec from "./assets/vectors2/Rec.png"
 import notf from "./assets/vectors2/not.png"
@@ -7,6 +7,7 @@ import cross from "./assets/vectors2/Shape.png"
 import srch from "./assets/vectors/srch.png"
 import heart from "./assets/heart.png"
 import Cart from './Cart'
+import { cartItemsContext } from './App'
 
 
 export const mycontext=createContext();
@@ -15,12 +16,15 @@ export const mycontext=createContext();
 function HeaderChild2() {
 
     const [decision,setdecision]=useState(false);
+    const{notification,setNotification,CartItems}=useContext(cartItemsContext);
+    
+
 
     // forCart
     const[InOut,setInOut]=useState("slideout");
 
   return (
-    <mycontext.Provider value={{InOut,setInOut}} >
+    <mycontext.Provider value={{InOut,setInOut,notification,setNotification}} >
     <Cart/>
     <div className='w-full flex justify-center py-3 items-center bg-white sticky z-10 top-0'>
         <div className='w-[80%] flex justify-between'>
@@ -108,27 +112,33 @@ function HeaderChild2() {
                     <li><a href="">Contact Us</a></li>
                 </ul>
             </div>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 items-center'>
                 <div className='hidden md:block'>
                 <img src={acc} className='inline' alt="" />
                 </div>
                 <div className='hidden md:block'>
                 <img src={acc} className='inline' alt="" />
                 </div>
+
                 <div className=''>
                 <button
-                className='relative'
+                className=''
                 onClick={()=>{
                     setInOut("slideIn")
                 }}
                 >
-                    
-                <img src={rec} className='inline h-[22px] w-[22px] rounded-[50%]' alt="" /></button>
+                <img src={rec} className='inline h-[22px] w-[22px] rounded-[50%]' alt="" />
+                </button>
                 </div>
-                <div className='relative inline  '>
-                <img src={notf} alt="" className='inline  ' />
-                <h1 className='absolute text-white font-semibold text-sm top-[3px] left-[7px]'>2</h1>
-                </div>
+                <div
+                
+                style={{
+                    backgroundColor:notification?"#38CB89":"black"
+                }}
+                
+                className="rounded-[50%] w-[22px] h-[25px] flex justify-center items-center">
+                <h1 className='inline-block text-white font-semibold text-sm h-[22px] '>{CartItems.length}</h1>
+                </div>  
             </div>
 
         </div>
