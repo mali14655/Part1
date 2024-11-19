@@ -57,7 +57,6 @@ export default function App() {
 
 
 <cartItemsContext.Provider value={{CartItems,setCartItems,notification,setNotification}}>
-{/* <Cart/> */}
 {decision || <HeaderChild2/> }
 <Header></Header>
 { decision && <HeaderChild2/>}
@@ -69,8 +68,6 @@ export default function App() {
 <Articles/>
 <Join/>
 <Footer/>
-{/* <CheckOut/> */}
-{/* <SignUp></SignUp> */}
 
 </cartItemsContext.Provider>
 </Elements>

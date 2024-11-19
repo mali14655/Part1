@@ -1,6 +1,8 @@
 import React,{useState,useEffect, useContext} from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { amountcontext } from './Cart';
+import cross from "./assets/vectors2/Shape.png"
+
 
 
 
@@ -11,7 +13,7 @@ export default function CheckOut() {
     const [clientSecret, setClientSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const {total,show,setshow,CartItems,setCartItems}=useContext(amountcontext);
+    const {total,show,setshow,CartItems,setCartItems,notification,setNotification}=useContext(amountcontext);
 
     // 
 
@@ -68,8 +70,15 @@ export default function CheckOut() {
     <>
     <div className={` w-full h-[100vh] fixed md:top-0 left-0 z-50 bg-gray-300 bg-opacity-50 flex justify-center md:items-center`}>
 
-<div className=' fixed top-56 md:static w-[90%] md:w-[50%] z-50 flex flex-col items-center justify-around rounded bg-white min-h-[30vh] py-5 md:min-h-[40vh] md:py-10 shadow-md'>
+<div className=' fixed top-56 md:static w-[90%] md:w-[50%] z-50 flex flex-col items-center justify-around rounded bg-white min-h-[30vh] py-3 md:min-h-[40vh] md:py-5 shadow-md'>
 
+<div className='w-full relative flex justify-end px-4'>
+  <img src={cross} onClick={()=>{
+    setshow(false)
+    setNotification(false)
+
+  }} className='hover:cursor-pointer' alt="" />
+</div>
 
 <form onSubmit={handleSubmit} className=' w-full flex flex-col items-center gap-10'>
       <h2 className='font-bold'>Checkout</h2>

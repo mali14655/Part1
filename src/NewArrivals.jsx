@@ -79,12 +79,22 @@ export default function NewArrivals() {
                         <button className='w-10/12 h-[46px] rounded-lg bg-[#141718] inter md:text-base md:leading-7  text-white md:font-medium relative top-[287px]'
                         
                         onClick={()=>{
+
+                            const index=CartItems.findIndex((element)=>(element.name===product.name));
+                            if(index>=0){
+                                const updatedCart=[...CartItems];
+                                updatedCart[index]={...updatedCart[index],count:updatedCart[index].count+1};
+                                setCartItems(updatedCart);
+                            }
+                            else {
                             setCartItems((prev)=>([...prev,
                                 {name:product.name,
                                  url:product.image,
-                                 price:product.price
+                                 price:product.price,
+                                 count:1
 
                             }]))
+                            }
 
                             setNotification(true);
                         }}

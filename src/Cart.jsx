@@ -21,20 +21,27 @@ function Cart() {
         let CalculateTotal=(array)=>{
             let total=0;
             array.forEach((item)=>{
-                total=total+item.price;
+                total=total+(item.price*item.count);
             })
             settotal(total);
         }   
     
         CalculateTotal(CartItems);
 
-        setstackitems(CartItems.reverse());
+        setstackitems([...CartItems].reverse());
 
     },[CartItems])
 
+
+    //Deleting from Cart.
     const delet=(index)=>{
-        const newdata=CartItems.filter((item,i)=>(i!==index))
-        setCartItems(newdata);
+
+        // finding the element in stackitems
+        const itemStack=stackitems[index];
+        // now deleting items from cartItems by using the itemStack(actualItemName);
+        const updatedCart=CartItems.filter((element)=>(element!==itemStack));
+
+        setCartItems(updatedCart);
     }
 
 
@@ -82,9 +89,53 @@ function Cart() {
                     <h1 className='inter font-medium text-[14px]'>{product.name}</h1>
                     <p className='inter text-[12px] text-[#6C7275]'>Color: Black</p>
                     <div className='w-[80px] h-8 rounded border-[#6C7275] border-[1px] flex justify-between px-3 items-center'>
-                        <button className='flex items-center font-medium'>-</button>
-                        <h1>1</h1>
-                        <button className='flex items-center font-medium'>+</button>
+                        <button className='flex items-center font-medium'
+                        
+                        onClick={()=>{
+
+
+                            //finding that specific element in the stackItems as We are mapping stackItems.
+                            //we can skip this line and can find out the indexOf that specific object in cartItems by comparing the product.name and element.name directly of cartItems;
+                            const ItemStack=stackitems.find((element)=>(element.name===product.name));
+                            console.log(ItemStack);
+                            //
+                            const indexInCartItems=CartItems.findIndex((element)=>(element.name===ItemStack.name));
+                            console.log(indexInCartItems);
+
+                            const updatedCart=[...CartItems];
+                            if(updatedCart[indexInCartItems].count>1){
+                            updatedCart[indexInCartItems]={...updatedCart[indexInCartItems],count:updatedCart[indexInCartItems].count-1};
+                            setCartItems(updatedCart);
+                            }
+                            else{
+                                delet(index);
+                            }
+                        }}
+
+
+                        
+                        >-</button>
+                        <h1>{product.count}</h1>
+                        <button className='flex items-center font-medium'
+                        
+                        onClick={()=>{
+
+                            //finding that specific element in the stackItems as We are mapping stackItems.
+                            //we can skip this line and can find out the indexOf that specific object in cartItems by comparing the product.name and element.name directly of cartItems;
+                            const ItemStack=stackitems.find((element)=>(element.name===product.name));
+                            console.log(ItemStack);
+                            //
+                            const indexInCartItems=CartItems.findIndex((element)=>(element.name===ItemStack.name));
+                            console.log(indexInCartItems);
+
+                            const updatedCart=[...CartItems];
+                            updatedCart[indexInCartItems]={...updatedCart[indexInCartItems],count:updatedCart[indexInCartItems].count+1};
+
+                            setCartItems(updatedCart);
+
+                        }}
+
+                        >+</button>
                     </div>
                     </div>
                     <div className='h-[44px] w-[54px] absolute top-0 right-0'>
