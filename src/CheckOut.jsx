@@ -60,7 +60,9 @@ export default function CheckOut() {
         } else if (paymentIntent.status === 'succeeded') {
           alert('Payment successful!');
           setshow(false)
+          setNotification(false);
           setCartItems([]);
+          console.log("Cart emptied:", CartItems)
         }
       };
 

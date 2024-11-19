@@ -49,7 +49,7 @@ function Cart() {
 
 
   return (
-<amountcontext.Provider value={{total,show,setshow,notification,setNotification}}>
+<amountcontext.Provider value={{total,show,setshow,notification,setNotification,CartItems,setCartItems}}>
     {show&&<CheckOut/>}
 <div className={`${InOut} w-[90%] md:w-[400px] md:h-[1024px] bg-white h-[100vh]  z-20 px-4 py-5 cart`}>
 
