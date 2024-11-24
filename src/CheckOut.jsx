@@ -25,19 +25,7 @@ export default function CheckOut() {
   // 
   
   useEffect(() => {
-    // toast.success("hello bhaii",{
-
-    //   position: 'top-center',
-    //         autoClose: 2000,
-    //         hideProgressBar: true,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         transition:Zoom,
-    //         theme: 'light',
-      
-    // })
-    // This is where you send the cart total to your backend
+    // This is where we send the cart total to our backend
         fetch('https://part2-fawn.vercel.app/create-payment-intent', {
           method: 'POST',
           body: JSON.stringify({ amount:total*100 }), // Example: Pass the amount in cents (e.g., $20.00)
@@ -76,7 +64,16 @@ export default function CheckOut() {
         
         if (error) {
           setErrorMessage(error.message);
-          toast.error("Something Went Wrong !")
+          toast.error("Something Went Wrong !",{
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            transition:Zoom,
+            theme: 'light',
+          })
         } else if (paymentIntent.status === 'succeeded') {
           // alert('Payment successful!');
           toast.success("Paymenmt Successful !",{
