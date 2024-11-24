@@ -4,22 +4,28 @@ import { amountcontext } from './Cart';
 import Loader from './Loader';
 import cross from "./assets/vectors2/Shape.png"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 
 
 
 export default function CheckOut() {
-    const stripe = useStripe();
-    const elements = useElements();
-    const [clientSecret, setClientSecret] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const {total,show,setshow,CartItems,setCartItems,notification,setNotification}=useContext(amountcontext);
-
-    // 
-
-    useEffect(() => {
-        // This is where you send the cart total to your backend
+  
+  const stripe = useStripe();
+  const elements = useElements();
+  const [clientSecret, setClientSecret] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const {total,show,setshow,CartItems,setCartItems,notification,setNotification}=useContext(amountcontext);
+  
+  // 
+  
+  useEffect(() => {
+    // This is where you send the cart total to your backend
         fetch('https://part2-fawn.vercel.app/create-payment-intent', {
           method: 'POST',
           body: JSON.stringify({ amount:total*100 }), // Example: Pass the amount in cents (e.g., $20.00)
@@ -37,10 +43,10 @@ export default function CheckOut() {
               }
           })
           .catch((error) => setErrorMessage('Failed to load client secret'));
-      }, []);
+        }, []);
       
       
-      const handleSubmit = async (event) => {
+        const handleSubmit = async (event) => {
         event.preventDefault();
         
         if (!stripe || !elements) return;
@@ -58,16 +64,20 @@ export default function CheckOut() {
         
         if (error) {
           setErrorMessage(error.message);
+          toast.error("Something Went Wrong !")
         } else if (paymentIntent.status === 'succeeded') {
-          alert('Payment successful!');
+          // alert('Payment successful!');
+          toast.success("Paymenmt Successful !")
           setshow(false)
           setNotification(false);
           setCartItems([]);
-          console.log("Cart emptied:", CartItems)
+          // console.log("Cart emptied:", CartItems)
+          setLoading(false);
         }
       };
 
-
+      
+      
   return (
 
     <>
@@ -105,7 +115,7 @@ options={{
     </form>
     </div>    
     </div>
-    
+    <ToastContainer/>
     
     </>
   )
