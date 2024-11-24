@@ -10,13 +10,17 @@ import Articles from './Articles'
 import Join from './Join'
 import Footer from './Footer'
 import HeaderChild2 from './HeaderChild2'
-import Cart from './Cart'
-import CheckOut from './CheckOut'
 
 // stripe 
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+
+// tostify
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const stripePromise = loadStripe('pk_test_51QJt9FFadvgEyax9io1vn8kwWZtQ6S8jtY3ahoughVaqMmBFUDksi4N3ZfuH4nw5Jzgx01nSIq4DxxuLwuNwx5QX00wAoeyevW');
 
@@ -55,7 +59,7 @@ export default function App() {
 
     <Elements stripe={stripePromise}>
 
-
+<ToastContainer/>
 <cartItemsContext.Provider value={{CartItems,setCartItems,notification,setNotification}}>
 {decision || <HeaderChild2/> }
 <Header></Header>

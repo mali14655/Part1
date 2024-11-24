@@ -4,7 +4,7 @@ import { amountcontext } from './Cart';
 import Loader from './Loader';
 import cross from "./assets/vectors2/Shape.png"
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -25,6 +25,18 @@ export default function CheckOut() {
   // 
   
   useEffect(() => {
+    // toast.success("hello bhaii",{
+
+    //   position: 'top-center',
+    //         autoClose: 2000,
+    //         hideProgressBar: true,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         transition:Zoom,
+    //         theme: 'light',
+      
+    // })
     // This is where you send the cart total to your backend
         fetch('https://part2-fawn.vercel.app/create-payment-intent', {
           method: 'POST',
@@ -67,7 +79,17 @@ export default function CheckOut() {
           toast.error("Something Went Wrong !")
         } else if (paymentIntent.status === 'succeeded') {
           // alert('Payment successful!');
-          toast.success("Paymenmt Successful !")
+          toast.success("Paymenmt Successful !",{
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            transition:Zoom,
+            theme: 'light', // Available themes: 'light', 'dark', 'colored')
+          })
+
           setshow(false)
           setNotification(false);
           setCartItems([]);
@@ -115,7 +137,6 @@ options={{
     </form>
     </div>    
     </div>
-    <ToastContainer/>
     
     </>
   )
