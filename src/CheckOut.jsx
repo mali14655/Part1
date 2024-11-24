@@ -1,6 +1,7 @@
 import React,{useState,useEffect, useContext} from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { amountcontext } from './Cart';
+import Loader from './Loader';
 import cross from "./assets/vectors2/Shape.png"
 
 
@@ -98,8 +99,8 @@ options={{
     
     />
       {errorMessage && <div className="error">{errorMessage}</div>}
-      <button type="submit" disabled={!stripe || loading} className='bg-black opacity-80 text-white rounded px-2 py-1 w-[90%] hover:scale-[102%] hover:opacity-100 transition-all duration-1000'>
-        {loading ? 'Processing...' : 'Pay Now'}
+      <button type="submit" disabled={!stripe || loading} className='bg-black opacity-80 text-white rounded px-2 py-1 flex justify-center w-[90%] hover:scale-[102%] hover:opacity-100 transition-all duration-1000'>
+        {loading ? <Loader/> : 'Pay Now'}
       </button>
     </form>
     </div>    
