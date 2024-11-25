@@ -42,7 +42,22 @@ export default function CheckOut() {
                 setErrorMessage('Client secret not received');
               }
           })
-          .catch((error) => setErrorMessage('Failed to load client secret'));
+          .catch((error) => {
+
+            toast.error("Cart is Empty !",{
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            transition:Zoom,
+            theme: 'light',
+
+            })
+
+            
+            setErrorMessage('Failed to load client secret')});
         }, []);
       
       
